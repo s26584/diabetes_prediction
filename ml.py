@@ -70,6 +70,7 @@ logmodel = LogisticRegression(max_iter=500, verbose=1)
 logmodel.fit(X_train, y_train)
 predictions = logmodel.predict(X_test)
 
+# Print the classification report
 print(classification_report(y_test, predictions))
 
 # Count true negative, false positive, false negative, true positive
@@ -79,9 +80,8 @@ print('TN: ', tn)
 print('FP: ', fp)
 print('FN: ', fn)
 print('TP: ', tp)
-# print(confusion_matrix(y_test, predictions))
 
-# sns.heatmap(confusion_matrix(y_test, predictions), annot=True)
+# Calculate the confusion matrix
 plot_confusion_matrix(logmodel, X_test, y_test)
 plt.title('Confusion matrix - 15% test')
 plt.show()
@@ -94,17 +94,20 @@ print("\nDataset without DiabetesPedigreeFunction:\n", df_upsampled.head())
 # Again, train the model with the data
 X = df_upsampled.drop('Outcome', axis=1)
 y = df_upsampled['Outcome']
-
 X_train, X_test, y_train, y_test = train_test_split(df_upsampled.drop('Outcome', axis=1),
                                                     df_upsampled['Outcome'], test_size=0.15,
                                                     random_state=101)
 
+# Create a new model based on the modified data
 logmodel = LogisticRegression(max_iter=500, verbose=1)
 logmodel.fit(X_train, y_train)
 predictions = logmodel.predict(X_test)
 
+# Print the classification report 
 print(classification_report(y_test, predictions))
 
+
+# Calculate confusion matrix
 plot_confusion_matrix(logmodel, X_test, y_test)
 plt.title('Confusion matrix - 15% test - No DiabetesPedigreeFunction')
 plt.show()
